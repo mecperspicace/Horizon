@@ -1,9 +1,7 @@
 from pystyle import Colors, Write
 import logging
 
-logger = logging.getLogger()
-
-def _init():
+def init():
     logging.basicConfig(filename=".log",
                         format='%(asctime)s %(message)s',
                         filemode='w',
