@@ -1,6 +1,5 @@
 import load
 from pystyle import Colors, Write
-import logger
 import hashlib
 import os
 
@@ -10,12 +9,17 @@ def get_value(message):
 def get_action(file):
     return "decrypting" if str(file).endswith('.encrypt') else "crypting"
 
+def progress_bar(progress, total):
+    percent = 100 * (progress / total)
+    bar = '█' * int(percent) + '-' * (100 - int(percent))
+    print(f"\r|{bar}| {percent:.2f}%", end="\r")
+
 if __name__ == '__main__':
     load.load()
     file = get_value("Enter the file you want to crypt/decrypt")
-    key = hashlib.sha256(get_value("Enter the key").encode('utf-8')).digest()
-    logger.info("Start " + get_action(file) + " the file : " + file + "\n")
-    logger.info("with the key : " + str(key) + "\n")
+    key = hashlib.sha256(get_value("Enter the key").encode('utf-8'))
+    Write.Print("Start " + get_action(file) + " the file : " + file + "\n", Colors.yellow_to_red, interval=0.005)
+    Write.Print("With the key : " + key.hexdigest() + "\n", Colors.yellow_to_red, interval=0.005)
     with open(file, 'rb') as src_file:
         if file.endswith('.encrypt'):
             target_file = file.replace('.encrypt', '')
@@ -25,11 +29,11 @@ if __name__ == '__main__':
             i = 0
             while src_file.peek():
                 c = ord(src_file.read(1))
-                j = i % len(key)
-                b = bytes([c^key[j]])
+                j = i % len(key.digest())
+                b = bytes([c^key.digest()[j]])
                 exit_file.write(b)
                 i = i + 1
-                print("i : " + str(i) + " / " + str(os.stat(file).st_size))
+                progress_bar(i, os.stat(file).st_size)
     os.remove(file)
-    logger.success("Successfully " + get_action(file) + " into : " + target_file)
-    input('\n')
+    Write.Print("Successfully " + get_action(file) + " into : " + target_file + " "*100, Colors.green_to_yellow, interval=0.005)
+    input('')
