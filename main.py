@@ -12,7 +12,13 @@ def get_action(file):
 def progress_bar(progress, total):
     percent = 100 * (progress / total)
     bar = '█' * int(percent) + '-' * (100 - int(percent))
-    print(f"\r|{bar}| {percent:.2f}%", end="\r")
+    if percent < 30:
+        print(Colors.red + f"\r|{bar}| {percent:.2f}%", end="\r")
+        return
+    if percent < 60:
+        print(Colors.yellow + f"\r|{bar}| {percent:.2f}%", end="\r")
+        return
+    print(Colors.green + f"\r|{bar}| {percent:.2f}%", end="\r")
 
 if __name__ == '__main__':
     load.load()
