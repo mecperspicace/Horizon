@@ -24,13 +24,7 @@ if __name__ == '__main__':
     load.load()
     file = get_value("Enter the file you want to crypt/decrypt")
 
-    if file is not None:
-        exit()
-
     key = hashlib.sha256(get_value("Enter the key").encode('utf-8'))
-
-    if key is not None:
-        exit()
 
     Write.Print("Start " + get_action(file) + " the file : " + file + "\n", Colors.yellow_to_red, interval=0.005)
     Write.Print("With the key : " + key.hexdigest() + "\n", Colors.yellow_to_red, interval=0.005)
