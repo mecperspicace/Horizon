@@ -6,7 +6,7 @@ import randomizer
 
 
 def get_value(message):
-    return Write.Input(message + " -> ", Colors.yellow_to_red, interval=0.005)
+    return Write.Input(message + " -> ", Colors.yellow_to_red, interval=0.005, hide_cursor=False)
 
 
 def get_action(file_name):
