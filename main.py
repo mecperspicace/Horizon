@@ -77,4 +77,4 @@ if __name__ == '__main__':
     Write.Print("Successfully " + get_action(file) + " into : " + target_file + " " * 100, Colors.green_to_yellow,
                 interval=0.005)
 
-    input('')
+    input('Thanks for using Horizon, <3')
