@@ -11,6 +11,8 @@ Download with github :
 ```bash
   git clone https://github.com/mecperspicace/Horizon.git
   cd Horizon
+  pip install -r requirements.txt
+  python3 ./main.py
 ```
     
 ## Authors
